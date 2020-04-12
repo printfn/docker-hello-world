@@ -5,8 +5,6 @@ authors = ["printfn <printfn@users.noreply.github.com"]
 edition = "2018"
 
 [dependencies]
-#libc = { version = "0.2", default-features = false }
-compiler_builtins = { git = "https://github.com/rust-lang/compiler-builtins" }
 
 [profile.dev]
 panic = 'abort'
