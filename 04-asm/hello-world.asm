@@ -21,16 +21,16 @@ times 8 db 0             ;          padding
         dd 0             ; e_flags (processor-specific flags)
         dw ehdrsize      ; e_ehsize (elf header size)
         dw phdrsize      ; e_phentsize (program header size)
-        dw 1             ; e_phnum (number of program header entries)
-        dw 0             ; e_shentsize (size of section header entry)
-        dw 0             ; e_shnum (number of section header entries)
-        dw 0             ; e_shstrndx (section name string table index)
+        db 1, 0          ; e_phnum (number of program header entries)
+        db 0, 0          ; e_shentsize (size of section header entry)
+        db 0, 0          ; e_shnum (number of section header entries)
+        db 0, 0          ; e_shstrndx (section name string table index)
 
 ehdrsize equ $ - ehdr    ; 64 bytes
 
 phdr:
-        dd 1             ; p_type (loadable segment)
-        dd 5             ; p_flags (segment attributes, 0x1: exec, 0x2: write, 0x4: read)
+        db 1, 0, 0, 0    ; p_type (loadable segment)
+        db 5, 0, 0, 0    ; p_flags (segment attributes, 0x1: exec, 0x2: write, 0x4: read)
         dq 0             ; p_offset (offset in file)
         dq $$            ; p_vaddr (virtual address in memory)
         dq phdr          ; p_paddr (reserved)
