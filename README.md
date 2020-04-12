@@ -6,3 +6,6 @@
 
 `03-asm` uses nasm to manually create an ELF file, using 157 bytes.
 
+
+View disassembly using `objdump -b binary -m i386:x86-64 -D a.out`.
+
