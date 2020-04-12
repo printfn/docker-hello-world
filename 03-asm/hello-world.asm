@@ -26,7 +26,7 @@ times 8 db 0             ;          padding
         dw 0             ; e_shnum (number of section header entries)
         dw 0             ; e_shstrndx (section name string table index)
 
-ehdrsize equ $ - ehdr
+ehdrsize equ $ - ehdr    ; 64 bytes
 
 phdr:
         dd 1             ; p_type (loadable segment)
@@ -38,9 +38,9 @@ phdr:
         dq filesize      ; p_memsz (size of segment in memory)
         dq 0x1000        ; p_align (alignment of segment)
 
-phdrsize equ $ - phdr
+phdrsize equ $ - phdr    ; 56 bytes
 
-; 23 bytes of code, followed by 12 bytes of data
+; 25 bytes of code, followed by 12 bytes of data
 _start:
 	xor eax, eax     ; automatically zeroes upper 32 bits
 	inc eax          ; could also inc al, no difference
@@ -55,5 +55,5 @@ _start:
         syscall          ; exit: rax = 60, rdi = 0
 msg:    db  "Hello World", 10
 
-filesize equ $ - $$
+filesize equ $ - $$      ; 64 + 56 + 25 + 12 = 157 bytes
 
