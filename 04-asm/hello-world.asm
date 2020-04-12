@@ -40,18 +40,20 @@ phdr:
 
 phdrsize equ $ - phdr
 
+; 23 bytes of code, followed by 12 bytes of data
 _start:
-	xor rax, rax
-	inc rax
-	xor rdi, rdi
-	inc rdi
-        mov rsi, msg
-        mov rdx, 13
-        syscall
-        mov rax, 60
-        xor dil, dil
-        syscall
-msg:    db  "Hello, World", 10
+	xor eax, eax     ; automatically zeroes upper 32 bits
+	inc eax          ; could also inc al, no difference
+	mov edi, eax
+        mov esi, msg
+	xor edx, edx
+        mov dl, 12
+        syscall          ; write: rax = rdi = 1, rsi = msg, rdx = 13
+        xor eax, eax
+        mov al, 60
+        xor edi, edi
+        syscall          ; exit: rax = 60, rdi = 0
+msg:    db  "Hello World", 10
 
 filesize equ $ - $$
 
