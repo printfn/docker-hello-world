@@ -2,6 +2,9 @@
 bits 64
         org 0x08048000
 
+; $:  beginning of the current line
+; $$: beginning of the current section
+
 ehdr:
 	db 0x7f, "ELF" ; e_ident: magic
         db 2, 1, 1, 0  ;          64-bit, little-endian, hp-ux abi, version "0"
