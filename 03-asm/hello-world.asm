@@ -13,7 +13,7 @@ ehdr:
         db 0             ;          version "0"
 times 8 db 0             ;          padding
 	dw 2             ; e_type: executable
-        dw 0x3e          ; e_machine
+        dw 0x3e          ; e_machine (must be 0x3e == 62 for amd64)
         dd 1             ; e_version
         dq _start        ; e_entry (entry point address)
         dq (phdr - ehdr) ; e_phoff (program header offset)
