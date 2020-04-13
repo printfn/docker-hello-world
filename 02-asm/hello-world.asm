@@ -14,5 +14,5 @@ _start:
         mov rax, 60   ; code for 'exit' syscall
         xor dil, dil  ; exit code 0
         syscall       ; perform exit call
-msg:    db  "Hello, World", 10
+msg:    db  "Hello World", 10
 
