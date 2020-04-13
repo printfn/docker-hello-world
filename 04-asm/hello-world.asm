@@ -34,7 +34,7 @@ msg:    db 'Hello Wo'       ; 48 65 6c 6c 6f 20 57 6f                       p_pa
         dq 1                ; 01 00 00 00 00 00 00 00                       p_align
 
 ; e_ident must start with 0x7f, "ELF", 2, followed by 11 arbitrary bytes
-; e_type must be 2 (64-bit executable)
+; e_type must be 2 (executable file)
 ; e_machine must be 62 (amd64)
 ; e_version is arbitrary
 ; e_entry is the program entrypoint address
