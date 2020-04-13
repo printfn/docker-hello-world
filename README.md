@@ -1,6 +1,6 @@
 # tiny hello world
 
-`00-rust` is a normal Rust Hello World program in Rust, using default settings to create a standalone Docker image (size: 2,898,392 bytes)
+`00-rust` is a normal Hello World program in Rust, using default settings to create a standalone Docker image (size: 2,898,392 bytes)
 
 `01-rust` uses `no_std` and a few other tricks to reduce the size of the Rust program to 13360 bytes.
 
