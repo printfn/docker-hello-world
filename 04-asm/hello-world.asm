@@ -19,9 +19,9 @@ ehdr:   db 0x7f, "ELF"   ; e_ident: magic
         db 0x3e,0        ; e_machine (must be 0x3e == 62 for amd64)
         ;db 0,0,0,0       ; e_version (free to use for anything)
 cont:   dec edi
-        syscall
+        syscall   ; exit: rax = 60, rdi = 0
         db 5,0,0,2, 0,0,0,0  ; e_entry (entry point address)
-        db 60,0,0,0, 0,0,0,0 ; e_phoff (program header offset) (IMPORTANT: = phdr - ehdr)
+        db 56,0,0,0, 0,0,0,0 ; e_phoff (program header offset) (IMPORTANT: = phdr - ehdr)
 
 cont2:  mov edi, eax
         xor edx, edx
@@ -34,22 +34,17 @@ cont2:  mov edi, eax
                      ; e_flags (processor-specific flags)
         ;db 0, 0      ; e_ehsize (elf header size)
         db 56,0      ; e_phentsize (program header size) (always equals 56, checked by linux)
-        db 1, 0          ; e_phnum (number of program header entries)
+phdr:   db 1, 0          ; e_phnum (number of program header entries)
         db 0, 0          ; e_shentsize (size of section header entry)
-phdr:   db 1, 0          ; e_shnum (number of section header entries)
+        db 5, 0          ; e_shnum (number of section header entries)
         db 0, 0          ; e_shstrndx (section name string table index)
 
         ; p_type (loadable segment)
-        db 5, 0, 0, 0   ; p_flags (segment attributes, 0x1: exec, 0x2: write, 0x4: read)
+        ;db 5, 0, 0, 0   ; p_flags (segment attributes, 0x1: exec, 0x2: write, 0x4: read)
         db 0,0,0,0, 0,0,0,0    ; p_offset (offset in file)
         db 0,0,0,2, 0,0,0,0    ; p_vaddr (virtual address in memory)
 
 msg:    db 'Hello Wo'          ; p_paddr (reserved)
-        db 'rld',10,0,0,0,0      ; p_filesz (size of segment in file)
-        db 'rld',10,0,0,0,0      ; p_memsz (size of segment in memory)
-        dq 0x1000        ; p_align (alignment of segment)
-
-; 25 bytes of code, followed by 12 bytes of data
-;cont:  dec edi
-;        syscall          ; exit: rax = 60, rdi = 0
-;msg:    db  "Hello World", 10
+        db 'rld',10,1,0,0,0      ; p_filesz (size of segment in file)
+        db 'rld',10,1,0,0,0      ; p_memsz (size of segment in memory)
+        db 1,0,0,0, 0,0,0,0        ; p_align (alignment of segment)
