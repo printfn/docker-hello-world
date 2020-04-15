@@ -41,22 +41,9 @@ msg:    db 'Hello Wo'       ; 48 65 6c 6c 6f 20 57 6f                       p_pa
         db 'rld',10,0,0,0,0 ; 72 6c 64 0a 00 00 00 00                       p_memsz
         dq 1                ; 01 00 00 00 00 00 00 00                       p_align
 
-
-                     ; 0f 05 write
         ;xor eax, eax        ; 31 c0                    e_flags
         ;mov al, 60          ; b0 3c
         ;jmp cont2           ; eb de                    e_ehsize
-        ;dw 56               ; 38 00                    e_phentsize
-;phdr:   dw 1                ; 01 00                    e_phnum              p_type
-;        dw 0                ; 00 00                    e_shentsize
-;        dw 1                ; 01 00                    e_shnum              p_flags
-;        dw 0                ; 00 00                    e_shstrndx
-;        dq 0                ; 00 00 00 00 00 00 00 00                       p_offset
-;        dq ehdr             ; 00 00 01 00 00 00 00 00                       p_vaddr
-;msg:    db 'Hello Wo'       ; 48 65 6c 6c 6f 20 57 6f                       p_paddr
-;        db 'rld',10,0,0,0,0 ; 72 6c 64 0a 00 00 00 00                       p_filesz
-;        db 'rld',10,0,0,0,0 ; 72 6c 64 0a 00 00 00 00                       p_memsz
-;        dq 1                ; 01 00 00 00 00 00 00 00                       p_align
 
 ; e_ident must start with 0x7f, "ELF", 2, followed by 11 arbitrary bytes
 ; e_type must be 2 (executable file)
