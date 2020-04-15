@@ -26,7 +26,7 @@ phdr:   dw 1                ; 01 00                    e_phnum              p_ty
         dw 0                ; 00 00                    e_shentsize
         dw 1                ; 01 00                    e_shnum              p_flags
         dw 0                ; 00 00                    e_shstrndx
-        dq 0                ; 00 00                                         p_offset
+        dq 0                ; 00 00 00 00 00 00 00 00                       p_offset
         dq ehdr             ; 00 00 01 00 00 00 00 00                       p_vaddr
 msg:    db 'Hello Wo'       ; 48 65 6c 6c 6f 20 57 6f                       p_paddr
         db 'rld',10,0,0,0,0 ; 72 6c 64 0a 00 00 00 00                       p_filesz
