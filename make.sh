@@ -60,9 +60,9 @@ printf "\x30\x00\x00\x00\x00\x00\x00\x00"
 # binary (jumped here from 0xe):
 # 89c7 mov edi, eax
 # 31d2 xor edx, edx
-# b20c mov dl, 0xc (12 bytes)
+# b20c mov dl, 0xe (14 bytes)
 # eb30 jmp 0x30 (to 0x60)
-printf "\x89\xc7\x31\xd2\xb2\x0c\xeb\x30"
+printf "\x89\xc7\x31\xd2\xb2\x0e\xeb\x30"
 # 30
 # ELF header: flags (unused)
 # ELF program header: type of segment: 1 (load: clear p_memsz bytes at p_vaddr
@@ -98,13 +98,13 @@ printf "\x00\x00"
 printf "\x01\x00\x01\x00\x00\x00\x00\x00"
 # 48
 # ELF program header: p_paddr: reserved for the segment's physical address
-printf "Hello Wo"
+printf "Hello, w"
 # 50
 # ELF program header: p_filesz: size of segment in the file
-printf "rld\n\x00\x00\x00\x00"
+printf "orld!\n\x00\x00"
 # 58
 # ELF program header: p_memsz: size of segment in memory, >=p_filesz
-printf "rld\n\x00\x00\x00\x00"
+printf "orld!\n\x00\x00"
 # 60
 # ELF program header: the required alignment for this section, usually a power of 2
 # binary (jumped here from 0x30):
