@@ -1,3 +1,6 @@
-# hello-world
+# tiny-hello-world
 
-A hello world program in 104 bytes, for x86-64 Linux.
+This repository contains tiny hello world programs for Linux.
+
+* `./x86-64.out`: 104 bytes
+* `./aarch64.out`: 124 bytes

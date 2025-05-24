@@ -1,3 +1,3 @@
 FROM --platform=linux/amd64 scratch
-ADD a.out /
-CMD ["/a.out"]
+ADD x86-64.out /
+CMD ["/x86-64.out"]
