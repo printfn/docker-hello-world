@@ -28,8 +28,8 @@ printf "\xc0"
 #  9
 # ELF header: unused/padding
 # binary:
-# be 50 00 01 00 mov esi, 0x10050 (buf addr for write)
-printf "\xbe\x50\x00"
+# be 48 00 01 00 mov esi, 0x10048 (buf addr for write)
+printf "\xbe\x48\x00"
 #  c
 # ELF header: unused/padding
 printf "\x01\x00"
@@ -54,63 +54,64 @@ printf "\xff\xcf\x0f\x05"
 printf "\x05\x00\x01\x00\x00\x00\x00\x00"
 # 20
 # ELF header: program header table offset
-printf "\x38\x00\x00\x00\x00\x00\x00\x00"
+printf "\x30\x00\x00\x00\x00\x00\x00\x00"
 # 28
 # ELF header: section header table offset
 # binary (jumped here from 0xe):
 # 89c7 mov edi, eax
 # 31d2 xor edx, edx
 # b20c mov dl, 0xc (12 bytes)
-# 0f05 syscall
-printf "\x89\xc7\x31\xd2\xb2\x0c\x0f\x05"
+# eb30 jmp 0x30 (to 0x60)
+printf "\x89\xc7\x31\xd2\xb2\x0c\xeb\x30"
 # 30
 # ELF header: flags (unused)
-# binary: 31c0 b03c:
-# xor eax, eax
-# mov al, 0x3c (60, syscall for exit)
-printf "\x31\xc0\xb0\x3c"
+# ELF program header: type of segment: 1 (load: clear p_memsz bytes at p_vaddr
+#     to 0, then copy p_filesz bytes from p_offset to p_vaddr)
+printf "\x01\x00\x00\x00"
 # 34
 # ELF header: ELF header size
-# binary: ebde: jmp 0xfffffffffffffff7 (i.e. backwards jump to 0x14)
-printf "\xeb\xde"
+# ELF program header: flags (1 = executable, 4 = readable, 5 = r+x)
+printf "\x05\x00"
 # 36
 # ELF header: program header tbl entry size
+# ELF program header: flags cont'd
 printf "\x38\x00"
 # 38
 # ELF header: number of entries in program header tbl
-# ELF program header: type of segment: 1 (load: clear p_memsz bytes at p_vaddr
-#     to 0, then copy p_filesz bytes from p_offset to p_vaddr)
+# ELF program header: p_offset: offset for data in this segment
 printf "\x01\x00"
 # 3a
 # ELF header: section header tbl entry size
-# ELF program header: type of segment cont'd
+# ELF program header: p_offset cont'd
 printf "\x00\x00"
 # 3c
 # ELF header: number of entries in section header tbl
-# ELF program header: flags (1 = executable, 4 = readable, 5 = r+x)
-printf "\x05\x00"
+# ELF program header: p_offset cont'd
+printf "\x00\x00"
 # 3e
 # ELF header: section idx to section hdr tbl
-# ELF program header: flags cont'd
+# ELF program header: p_offset cont'd
 printf "\x00\x00"
 # 40
 # end of ELF header
-# ELF program header: p_offset: offset for data in this segment
-printf "\x00\x00\x00\x00\x00\x00\x00\x00"
-# 48
 # ELF program header: p_vaddr: where should this segment be put in virtual memory
-printf "\x00\x00\x01\x00\x00\x00\x00\x00"
-# 50
+printf "\x01\x00\x01\x00\x00\x00\x00\x00"
+# 48
 # ELF program header: p_paddr: reserved for the segment's physical address
 printf "Hello Wo"
-# 58
+# 50
 # ELF program header: p_filesz: size of segment in the file
 printf "rld\n\x00\x00\x00\x00"
-# 60
+# 58
 # ELF program header: p_memsz: size of segment in memory, >=p_filesz
 printf "rld\n\x00\x00\x00\x00"
-# 68
+# 60
 # ELF program header: the required alignment for this section, usually a power of 2
-printf "\x01\x00\x00\x00\x00\x00\x00\x00"
+# binary (jumped here from 0x30):
+# 0f05 syscall
+# 31c0 xor eax, eax
+# b03c mov al, 0x3c (60, exit syscall)
+# dbac jmp 0xac (backwards jump by 0x54, to 0x68-0x54=0x14)
+printf "\x0f\x05\x31\xc0\xb0\x3c\xeb\xac"
 
 } >a.out
