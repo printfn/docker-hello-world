@@ -115,3 +115,4 @@ printf "orld!\n\x00\x00"
 printf "\x0f\x05\x31\xc0\xb0\x3c\xeb\xac"
 
 } >a.out
+chmod +x a.out
