@@ -3,6 +3,19 @@ set -euo pipefail
 
 {
 
+# assembly:
+# xor eax, eax
+# inc eax
+# mov esi, 0x10048
+# mov edi, eax
+# xor edx, edx
+# mov dl, 0xe
+# syscall
+# xor eax, eax
+# mov al, 0x3c
+# dec edi
+# syscall
+
 #  0
 # ELF header: magic number
 printf "\x7fELF"
@@ -45,7 +58,7 @@ printf "\x02\x00"
 printf "\x3e\x00"
 # 14
 # ELF header: ELF version (currently 1)
-# binary (jumped here from 0x34):
+# binary (jumped here from 0x68):
 # ffcf dec edi
 # 0f05 syscall
 printf "\xff\xcf\x0f\x05"
