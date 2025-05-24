@@ -1,0 +1,3 @@
+FROM scratch
+ADD aarch64.out /
+CMD ["/aarch64.out"]
