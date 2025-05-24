@@ -87,8 +87,8 @@ printf "\x01\x00"
 printf "\x00\x00"
 # 3c
 # ELF header: number of entries in section header tbl
-# ELF program header: flags (1 = executable)
-printf "\x01\x00"
+# ELF program header: flags (1 = executable, 4 = readable, 5 = r+x)
+printf "\x05\x00"
 # 3e
 # ELF header: section idx to section hdr tbl
 # ELF program header: flags cont'd
